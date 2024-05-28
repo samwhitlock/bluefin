@@ -40,7 +40,6 @@ modules:
       # repo-name: flathub
       # repo-title: "Flathub (system-wide)" # Optional; this sets the remote's user-facing name in graphical frontends like GNOME Software
       install:
-        - com.logseq.Logseq
         - io.neovim.nvim
         # - org.mozilla.firefox
         # - org.gnome.Loupe
@@ -55,6 +54,9 @@ modules:
       - org.mozilla.firefox
       - org.gnome.Calendar
       - org.gnome.Contacts
+    user:
+      install:
+      - com.logseq.Logseq
   - type: fonts
     fonts:
       nerd-fonts:
