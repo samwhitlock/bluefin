@@ -5,7 +5,7 @@ description: This is my personal OS image.
 
 # the base image to build on top of (FROM) and the version tag to use
 base-image: ghcr.io/ublue-os/bluefin-dx
-image-version: 40 # latest is also supported if you want new updates ASAP
+image-version: latest # latest is also supported if you want new updates ASAP
 
 # module configuration, executed in order
 # you can include multiple instances of the same module
@@ -22,11 +22,15 @@ modules:
     install:
       # - micro
       # - starship
+      - winetricks # will install the rest of wine
+      - strace
     remove:
       # example: removing firefox (in favor of the flatpak)
       # "firefox" is the main package, "firefox-langpacks" is a dependency
       # - firefox
       # - firefox-langpacks # also remove firefox dependency (not required for all packages, this is a special case)
+      - neovim
+      # TODO uninstall the firmware that you don't need
 
   - type: default-flatpaks
     notify: true # Send notification after install/uninstall is finished (true/false)
@@ -37,6 +41,7 @@ modules:
       # repo-title: "Flathub (system-wide)" # Optional; this sets the remote's user-facing name in graphical frontends like GNOME Software
       install:
         - com.logseq.Logseq
+        - io.neovim.nvim
         # - org.mozilla.firefox
         # - org.gnome.Loupe
         # - one.ablaze.floorp//lightning # This is an example of flatpak which has multiple branches in selection (flatpak//branch).
@@ -44,7 +49,12 @@ modules:
       # only normal flatpak applications are (like Floorp Lightning web browser in this example).
       # Installing different branches of the same Flatpak is not supported.
       remove:
-      # - org.gnome.eog
+      - org.gnome.Maps
+      - org.mozilla.Thunderbird
+      # Want to install this via rpm-ostree for now
+      - org.mozilla.firefox
+      - org.gnome.Calendar
+      - org.gnome.Contacts
   - type: fonts
     fonts:
       nerd-fonts:
